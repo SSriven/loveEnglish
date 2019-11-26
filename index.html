@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>吴启超的爱心网站</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div id="app" :style="objSty"  >
+            <i @click="drawer = true" class='menu el-icon-s-unfold'></i>
+            <div class="empty"></div>
+            <el-table
+                v-loading="loading"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
+                v-if="tableShow"
+                :data="tableData"
+                :height="height"
+                style="width: 100%">
+                <el-table-column
+                prop="en"
+                label="English"
+                >
+                <template slot-scope="scope">
+                        <el-tag effect="plain" type="warning" v-text="scope.row.en"></el-tag>
+                </template>
+                </el-table-column>
+                <el-table-column
+                prop="cn"
+               
+                label="Chinese"
+                >
+                <template slot-scope="scope">
+                        <el-tag effect="plain" type="danger" v-text="scope.row.cn"></el-tag>
+                </template>
+                </el-table-column>
+            </el-table>
+            <el-card v-else class="box-card">
+                    <div slot="header" class="clearfix">
+                      <span>Summarize</span>
+                    </div>
+                    <div v-for="o in Summarize" :key="o" class="text item" v-text="o">
+                      
+                    </div>
+            </el-card>
+            <el-drawer
+                title="Love You"
+                size="75%"
+                :visible.sync="drawer"
+                :direction="direction">
+                <el-menu
+                default-active="1"
+                class="el-menu-vertical-demo"
+                @select="selectMenu"
+                background-color="#E6A23C"
+                text-color="#fff"
+                active-text-color="#ffd04b">
+                <el-menu-item index="1">
+                <span slot="title">Vocabulary</span>
+                </el-menu-item>
+                <el-menu-item index="2">
+                <span slot="title">Phrases and Experssions</span>
+                </el-menu-item>
+                <el-menu-item index="3">
+                <span slot="title">Addition Terms</span>
+                </el-menu-item>
+                <el-menu-item index="4">
+                <span slot="title">Summarize</span>
+                </el-menu-item>
+                </el-menu>
+            </el-drawer>
+            <ul class="bg-bubbles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+    </div>
+
+    <audio src="music/bg.mp3" autoplay loop></audio>
+  </body>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: function() {
+          return { 
+            tableShow:true,
+            drawer: false,
+            direction: 'ltr',
+            height:window.screen.height-60,
+            objSty:{height:window.screen.height+'px',width:window.screen.width+'px'},
+            tableData: [],
+            Vocabulary:[
+                {en:'stability',cn:"n.稳定"},
+                {en:'penetrate',cn:"v.渗透"},
+                {en:'sole',cn:"n. 稳定"},
+                {en:'stability',cn:"a.唯一的"},
+                {en:'patronize',cn:"v.赞助"},
+                {en:'quest',cn:"n.寻求"},
+                {en:'therein',cn:"ad.在那里"},
+                {en:'nimble',cn:"a.敏捷的"},
+                {en:'accelerating',cn:"a.加速的"},
+                {en:'offshore',cn:"a.离岸的"},
+                {en:'outship',cn:"v.超过的"},
+                {en:'demographic',cn:"a.消费心理的"},
+                {en:'geographic',cn:"a.地理的"},
+                {en:'aspire',cn:"v.渴望"},
+                {en:'recruit',cn:"v.招募"},
+                {en:'inventory',cn:"n.存货"},
+                {en:'adversely',cn:"ad.不利地"},
+                {en:'surpass',cn:"v.超过"},
+                {en:'recall',cn:"n.召回"},
+            ],
+            PhrasesAndExperssions:[
+                {en:'crave for',cn:'渴望'},
+                {en:'conform to',cn:'符合'},
+                {en:'cash flow',cn:'现金流量，现金流通'},
+                {en:'have no alternative but to do sth.',cn:'除了做某事之外别无选择'},
+                {en:'turn sour',cn:'变得糟糕'},
+                {en:'corporate identity',cn:'企业形象'},
+                {en:'account for',cn:'占……'},
+                {en:'profit margin',cn:'利润率'},
+                {en:'economies of scale',cn:'规模经济'},
+                {en:'identify...with...',cn:'将……与……等同起来'},
+                {en:'root cause',cn:'根本原因'},
+                {en:'cash shortage',cn:'现金短缺'},
+            ],
+            AdditionTerms:[
+                {en:'adapted marketing mix',cn:'适应性市场组合'},
+                {en:'adoption process',cn:'适应过程'},
+                {en:'brand extension',cn:'品牌延伸'},
+                {en:'cash investment',cn:'现金投资'},
+                {en:'channel level',cn:'渠道层级'},
+                {en:'click-only company',cn:'点击企业'},
+                {en:'co-branding',cn:'合作品牌'},
+                {en:'export-led',cn:'由出口带动的'},
+                {en:'export license',cn:'出口许可证'},
+                {en:'export-oriented',cn:'出口为主，出口导向'},
+                {en:'export value',cn:'出口价值'},
+                {en:'export price',cn:'出口价格'},
+                {en:'external asset',cn:'对外资产'},
+            ],
+            Summarize:[
+                '1.Only with the confidence can it then think of expanding its' + '\n'
+                +'frontiers penetrating into more markets internationally which would give rise to more turnovers.',
+                '2.Expansion is among any business owner’s top priorities.',
+                '3.Nothing is perfect and market expansion is no exception.',
+                '4.Expansion, when done properly, can place the company at the forefront of many customers‘ minds.',
+                '5.Successful business expansion can put the firm in a positive place when it comes to acquiring necessary. '
+            ],
+            loading:true
+           }
+        },
+        created(){
+            this.tableData = this.Vocabulary;
+        },
+        mounted(){
+            
+            this.loading = false;
+        },
+        methods:{
+            selectMenu(index,indexPath){
+                console.log(index,typeof index);
+                this.drawer = false;
+                this.loading = true;
+                if(index === '1'){
+                    this.tableData = this.Vocabulary;
+                    this.tableShow = true;
+                }else if(index === '2'){
+                    this.tableShow = true;
+                    this.tableData = this.PhrasesAndExperssions;
+                }else if(index === '3'){
+                    this.tableShow = true;
+                    this.tableData = this.AdditionTerms;
+                }else{
+                    this.tableShow = false;
+                }
+                this.loading = false;
+            }
+        }
+      })
+    </script>
+</html>
